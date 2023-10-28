@@ -4,7 +4,7 @@ function saveToLocalStorage(event) {
     event.preventDefault()
 
     let arr;
-    const object = {
+    var object = {
         name : event.target.name.value,
         email : event.target.email.value,
         phone : event.target.phone.value,
@@ -68,6 +68,20 @@ function showUserOnScreen(object) {
     editBtn.type = 'button'
     editBtn.value = 'edit'
     editBtn.onclick = () => {
+        parentEle.removeChild(childEle);
+        axios.put(`https://crudcrud.com/api/83a088dfbd2b479dbfa6403f2e3c3384/appointmentData/${object._id}`, {
+            name : object.name,
+            phone : object.phone,
+            email : object.email,
+        })
+        .then((response)=>{
+            console.log(response.data)
+            // showUserOnScreen(response.data)
+        })
+        .catch((error)=>
+        {
+            console.log(error)
+        })
         // localStorage.removeItem(object.email)
         parentEle.removeChild(childEle)
         
